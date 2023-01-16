@@ -1,0 +1,121 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "title": "Distribution of Phones (per 1000 people)",
+  "width": 800,
+  "height": 150,
+  "background": "aliceblue",
+  "data": {
+    "url": "https://raw.githubusercontent.com/span0017/FIT3179/main/countries.csv"
+  },
+  "params": [
+    {
+      "name": "Region_selection",
+      "bind": {
+        "input": "select",
+        "options": [
+          null,
+          "ASIA (EX. NEAR EAST)",
+          "EASTERN EUROPE",
+          "NORTHERN AFRICA",
+          "OCEANIA",
+          "WESTERN EUROPE",
+          "SUB-SAHARAN AFRICA",
+          "LATIN AMER. & CARIB",
+          "C.W. OF IND. STATES",
+          "NEAR EAST",
+          "NORTHERN AMERICA",
+          "BALTICS"
+        ],
+        "labels": [
+          "Show All",
+          "ASIA (EX. NEAR EAST)",
+          "EASTERN EUROPE",
+          "NORTHERN AFRICA",
+          "OCEANIA",
+          "WESTERN EUROPE",
+          "SUB-SAHARAN AFRICA",
+          "LATIN AMER. & CARIB",
+          "C.W. OF IND. STATES",
+          "NEAR EAST",
+          "NORTHERN AMERICA",
+          "BALTICS"
+        ],
+        "name": "Region Selection: "
+      }
+    }
+  ],
+  "transform": [
+    {"filter": "Region_selection == null || datum.Region == Region_selection"}
+  ],
+  "layer": [
+    {
+      "selection": {
+        "region_highlight": {
+          "type": "multi",
+          "fields": ["Region"],
+          "bind": "legend"
+        }
+      },
+      "mark": "area",
+      "transform": [
+        {
+
+          "density": "Phones (per 1000)",
+          "groupby": ["Region"],
+          "bandwidth":40,
+          "extent": [0, 1000]
+        }
+      ],
+      "encoding": {
+        "x": {"field": "value", "type": "quantitative", "title": "Phones (per 1000 people)"},
+        "y": {
+          "field": "density",
+          "type": "quantitative",
+          "stack": "zero",
+          "title": "Density"
+        },
+        "color": {
+          "field": "Region",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "ASIA (EX. NEAR EAST)",
+              "EASTERN EUROPE",
+              "NORTHERN AFRICA",
+              "OCEANIA",
+              "WESTERN EUROPE",
+              "SUB-SAHARAN AFRICA",
+              "LATIN AMER. & CARIB",
+              "C.W. OF IND. STATES",
+              "NEAR EAST",
+              "NORTHERN AMERICA",
+              "BALTICS"
+            ],
+            "range": [
+              "#4c78a8",
+              "#72b7b2",
+              "#b279a2",
+              "#9d755d",
+              "#bab0ac",
+              "#f4f1bb",
+              "#54a24b",
+              "#e45656",
+              "#ffca3b",
+              "#ff9da7",
+              "#f58518"
+            ]
+          }
+        },
+        "tooltip": [
+          {"field": "Region", "type": "nominal", "title": "Region"},
+          {
+            "field": "density",
+            "type": "quantitative",
+            "format": ".3f",
+            "title": "Density"
+          }
+        ]
+      }
+    }
+  ]
+}

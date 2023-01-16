@@ -1,0 +1,177 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "title": "Comparison of demographics of the 5 regions with most countries",
+  "data": {
+    "url": "https://raw.githubusercontent.com/span0017/FIT3179/main/countries.json"
+  },
+  "width": 500,
+  "height": 500,
+  "background": "whitesmoke",
+  "params": [
+    {
+      "name": "Region_selection",
+      "bind": {
+        "input": "select",
+        "options": [
+          null,
+          "ASIA (EX. NEAR EAST)",
+          "NEAR EAST",
+          "C.W. OF IND. STATES",
+          "EASTERN EUROPE",
+          "WESTERN EUROPE",
+          "BALTICS",
+          "NORTHERN AFRICA",
+          "SUB-SAHARAN AFRICA",
+          "LATIN AMER. & CARIB",
+          "NORTHERN AMERICA",
+          "OCEANIA"
+        ],
+        "labels": [
+          "Show All",
+          "ASIA (EX. NEAR EAST)",
+          "NEAR EAST",
+          "C.W. OF IND. STATES",
+          "EASTERN EUROPE",
+          "WESTERN EUROPE",
+          "BALTICS",
+          "NORTHERN AFRICA",
+          "SUB-SAHARAN AFRICA",
+          "LATIN AMER. & CARIB",
+          "NORTHERN AMERICA",
+          "OCEANIA"
+        ],
+        "name": "Region Selection: "
+      }
+    }
+  ],
+  "transform": [
+    {"filter": "datum['Agriculture (%)']"},
+    {"filter": "Region_selection == null || datum.Region == Region_selection"},
+    {"window": [{"op": "count", "as": "index"}]},
+    {"fold": ["Birthrate", "Deathrate", "Infant mortality (per 1000 births)"]},
+    {
+      "joinaggregate": [
+        {"op": "min", "field": "value", "as": "min"},
+        {"op": "max", "field": "value", "as": "max"}
+      ],
+      "groupby": ["key"]
+    },
+    {
+      "calculate": "(datum.value - datum.min) / (datum.max-datum.min)",
+      "as": "norm_val"
+    },
+    {"calculate": "(datum.min + datum.max)/ 2", "as": "mid"}
+  ],
+  "layer": [
+    {
+      "mark": {"type": "rule", "color": "#ccc"},
+      "encoding": {"detail": {"aggregate": "count"}, "x": {"field": "key"}}
+    },
+    {
+      "mark": "line",     
+      "encoding": {
+        "color": {
+          "legend": {"offset": -60},
+          "type": "nominal",
+          "field": "Region",
+          "scale": {
+            "domain": [
+              "ASIA (EX. NEAR EAST)",
+              "NEAR EAST",
+              "C.W. OF IND. STATES",
+              "EASTERN EUROPE",
+              "WESTERN EUROPE",
+              "BALTICS",
+              "NORTHERN AFRICA",
+              "SUB-SAHARAN AFRICA",
+              "LATIN AMER. & CARIB",
+              "NORTHERN AMERICA",
+              "OCEANIA"
+            ],
+            "range": [
+              "#ff0000",
+              "#ff0000",
+              "#0083C5",
+              "#0083C5",
+              "#0083C5",
+              "#0083C5",
+              "#17b978",
+              "#17b978",
+              "#FFEE00",
+              "#7300FF",
+              "#000000"
+            ]
+          }
+        },
+        "detail": {"type": "nominal", "field": "index"},
+        "opacity": {"value": 0.4},
+        "x": {"type": "nominal", "field": "key"},
+        "y": {"type": "quantitative", "field": "norm_val", "axis": null},
+        "tooltip": [
+          {"type": "nominal", "field": "Country"},
+          {"type": "quantitative", "field": "Birthrate"},
+          {"type": "quantitative", "field": "Deathrate"},
+          {
+            "type": "quantitative",
+            "field": "Infant mortality (per 1000 births)",
+            "title": "Infant Mortality"
+          }
+        ]
+      }
+    },
+    {
+      "encoding": {"x": {"type": "nominal", "field": "key"}, "y": {"value": 0}},
+      "layer": [
+        {
+          "mark": {"type": "text", "style": "label"},
+          "encoding": {"text": {"aggregate": "max", "field": "max"}}
+        },
+        {"mark": {"type": "tick", "style": "tick", "size": 8, "color": "#000"}}
+      ]
+    },
+    {
+      "encoding": {
+        "x": {"type": "nominal", "field": "key"},
+        "y": {"value": 250}
+      },
+      "layer": [
+        {
+          "mark": {"type": "text", "style": "label"},
+          "encoding": {"text": {"aggregate": "min", "field": "mid"}}
+        },
+        {"mark": {"type": "tick", "style": "tick", "size": 8, "color": "#000"}}
+      ]
+    },
+    {
+      "encoding": {
+        "x": {"type": "nominal", "field": "key"},
+        "y": {"value": 500}
+      },
+      "layer": [
+        {
+          "mark": {"type": "text", "style": "label"},
+          "encoding": {"text": {"aggregate": "min", "field": "min"}}
+        },
+        {"mark": {"type": "tick", "style": "tick", "size": 1, "color": "#000"}}
+      ]
+    }
+  ],
+  "config": {
+    "axisX": {
+      "domain": false,
+      "labelAngle": 0,
+      "tickColor": "#ccc",
+      "title": null
+    },
+    "view": {"stroke": null},
+    "style": {
+      "label": {
+        "baseline": "middle",
+        "align": "right",
+        "dx": -5,
+        "fontWeight": "bold"
+      },
+      "tick": {"orient": "horizontal"}
+    }
+  }
+}

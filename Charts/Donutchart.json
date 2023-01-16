@@ -1,0 +1,59 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "title": {"text":"Region's Area (sq. mi.)", "dy":235},
+  "background" : "whitesmoke",
+  "width": 400,
+  "height": 375,
+  "data": {
+    "url": "https://raw.githubusercontent.com/span0017/FIT3179/main/countries.json"
+  },
+  "encoding": {
+    "theta": {"field": "Area", "type": "quantitative", "stack": true},
+    "color": {
+      "field": "Region_1",
+      "title" : "Region",
+      "type": "nominal",
+      "legend": {"offset" : 50},
+      "scale": {
+        "domain": [
+          "ASIA (EX. NEAR EAST)",
+          "EASTERN EUROPE",
+          "NORTHERN AFRICA",
+          "OCEANIA",
+          "WESTERN EUROPE",
+          "SUB-SAHARAN AFRICA",
+          "LATIN AMER. & CARIB",
+          "C.W. OF IND. STATES",
+          "NEAR EAST",
+          "NORTHERN AMERICA",
+          "BALTICS"
+        ],
+        "range": [
+          "#0E7BFF",
+          "#00C8FF",
+          "#2ED739",
+          "#9d755d",
+          "#8F8F8F",
+          "#910CC9",
+          "#FF8C00",
+          "#FD2020",
+          "#b279a2",
+          "#FF5EB1",
+          "#000000"
+        ]
+      }
+    },
+    "tooltip": [
+      {"field": "Region_1", "type": "nominal", "title": "Region"},
+      {"field": "Area", "type": "quantitative", "title": "Area (sq. mi.)"}
+    ]
+  },
+  "layer": [
+    {"mark": {"type": "arc", "innerRadius": 100}},
+    {
+      "mark": {"type": "text", "radius": 220},
+      "encoding": {"text": {"field": "Area", "type": "nominal"}}
+    }
+  ],
+  "view": {"stroke": null}
+}

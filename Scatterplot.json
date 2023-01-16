@@ -1,0 +1,15 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "width": 800,
+  "height": 600,
+  "description": "A scatterplot showing horsepower and miles per gallons for various cars.",
+  "data": {
+    "url": "https://raw.githubusercontent.com/span0017/FIT3179/main/countries.csv"
+  },
+  "mark": "point",
+  "encoding": {
+    "x": {"field": "Birthrate", "type": "quantitative"},
+    "y": {"field": "GDP ($ per capita)", "type": "quantitative"}
+  },
+  "config": {}
+}

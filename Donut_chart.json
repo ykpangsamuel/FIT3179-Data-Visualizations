@@ -1,0 +1,52 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "title": "The total area (square mile) in each region",
+  "width": 800,
+  "height": 600,
+  "data": {
+    "url": "https://raw.githubusercontent.com/span0017/FIT3179/main/countries.csv"
+  },
+  "mark": {"type": "arc", "innerRadius": 50},
+  "encoding": {
+    "theta": {"field": "Area", "type": "quantitative"},
+    "color": {
+      "field": "Region_1",
+      "title": "Region",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "ASIA (EX. NEAR EAST)",
+          "EASTERN EUROPE",
+          "NORTHERN AFRICA",
+          "OCEANIA",
+          "WESTERN EUROPE",
+          "SUB-SAHARAN AFRICA",
+          "LATIN AMER. & CARIB",
+          "C.W. OF IND. STATES",
+          "NEAR EAST",
+          "NORTHERN AMERICA",
+          "BALTICS"
+        ],
+        "range": [
+          "#4c78a8",
+          "#72b7b2",
+          "#b279a2",
+          "#9d755d",
+          "#bab0ac",
+          "#f4f1bb",
+          "#54a24b",
+          "#e45656",
+          "#ffca3b",
+          "#ff9da7",
+          "#f58518"
+        ]
+      }
+    },
+    "tooltip": [
+      {"field": "Region", "type": "nominal", "title": "Region"},
+      {"field": "Area", "type": "quantitative", "title": "Area (sq. mi.)"}
+    ]
+  },
+  "view": {"stroke": null},
+  "config": {}
+}

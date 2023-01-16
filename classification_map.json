@@ -1,0 +1,41 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "title": "GDP ($Per Capita)",
+  "width": 900,
+  "height": 400,
+  "background" : "lavenderblush",
+  "data": {
+    "url": "https://raw.githubusercontent.com/KaneSec/vega_lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
+    "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+  },
+  "transform": [
+    {
+      "lookup": "properties.NAME",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/span0017/FIT3179/main/countries.csv"
+        },
+        "key": "Country",
+        "fields": ["GDP ($ per capita)"]
+      }
+    }
+  ],
+  "projection": {"type": "equirectangular"},
+  "mark": {"type": "geoshape"},
+  "encoding": {
+    "color": {
+      "field": "GDP ($ per capita)",
+      "type": "quantitative",
+      "scale": {
+        "type": "threshold",
+        "domain": [5000, 10000, 15000, 20000],
+        "range": ["#f25d9c", "#b61aae", "#590d82", "#0c056d"]
+      }
+    },
+    "tooltip": [
+      {"field": "properties.NAME", "type": "nominal", "title": "Country"},
+      {"field": "GDP ($ per capita)", "type": "quantitative"}
+    ]
+  },
+  "config": {}
+}

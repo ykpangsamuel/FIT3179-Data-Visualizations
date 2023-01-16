@@ -1,0 +1,29 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/span0017/FIT3179/main/countries.csv"
+  },
+  "title": "Literacy Rate (in %) of countries with population greater than 100 million",
+  "transform": [{"filter": "datum.Population > 100000000"}],
+  "width": 800,
+  "height": 450,
+  "background": "whitesmoke",
+  "config": {"view": {"stroke": "transparent"}, "bar" : {"discreteBandSize": 30}},
+  "encoding": {
+    "y": {"field": "Country", "type": "nominal", "title": "Country"},
+    "x": {"field": "Literacy (%)", "type": "quantitative", "axis": null}
+  },
+  "layer": [
+    {"mark": {"type" : "bar"}},
+    {
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "middle",
+        "dx": 20,
+        "fontSize": {"expr": "12"}
+      },
+      "encoding": {"text": {"field": "Literacy (%)", "type": "quantitative"}}
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+#Choropleth {
+	left: 100px;
+	right: 100px;
+	/*height: 1000px;
+	width: 800px;*/
+}
+
+#Bubblechart {
+	left: 100px;
+	right: 100px;
+	/*height: 1000px;
+	width: 800px;*/
+}
+
+#Barchart {
+	left: 100px;
+	right: 100px;
+	/*height: 1000px;
+	width: 800px;*/
+}
+
+#Distributionchart {
+	left: 100px;
+	right: 100px;
+	/*height: 1000px;
+	width: 800px;*/
+}
+
+#Parallelplot {
+	left: 1000px;
+	right: 100px;
+	/*height: 1000px;
+	width: 800px;*/
+}
+
+#Donutchart {
+	left: 100px;
+	right: 100px;
+	/*height: 1000px;
+	width: 800px;*/
+}
+
+
+body{
+    font-family: 'Source Sans Pro', sans-serif;
+}
